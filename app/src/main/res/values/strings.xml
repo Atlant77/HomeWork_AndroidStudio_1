@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">HomeWork_AndroidStudio</string>
     <string name="nmedia">NMedia!</string>
+    <string name="lable_avatar">Avatar</string>
+    <string name="menu">Menu</string>
+    <string name="likes">Likes</string>
+    <string name="reposts">reposts</string>
+    <string name="views">views</string>
 </resources>
