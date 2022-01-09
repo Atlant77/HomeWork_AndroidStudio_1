@@ -23,12 +23,12 @@ class MainActivity : AppCompatActivity() {
         )
 
         with(binding) {
-            author.text = post.author
-            publisher.text = post.published
-            content.text = post.content
-            likes.text = digitsToText(post.likes)
-            reposts.text = digitsToText(post.reposts)
-            views.text = digitsToText(post.views)
+            author?.text = post.author
+            publisher?.text = post.published
+            content?.text = post.content
+            likes?.text = digitsToText(post.likes)
+            reposts?.text = digitsToText(post.reposts)
+            views?.text = digitsToText(post.views)
 
             val likedIconResID =
                 if (post.likedByMe) R.drawable.ic_baseline_favorite_24 else R.drawable.ic_baseline_favorite_border_24
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                     false -> post.likes = post.likes - 1
                 }
 
-                likes.text = digitsToText(post.likes)
+                likes?.text = digitsToText(post.likes)
                 likes_ico.setImageResource(
                     if (post.likedByMe) {
                         R.drawable.ic_baseline_favorite_24
@@ -53,31 +53,30 @@ class MainActivity : AppCompatActivity() {
             }
             reposts_ico?.setOnClickListener {
                 post.reposts = post.reposts + 1
-                reposts.text = digitsToText(post.reposts)
+                reposts?.text = digitsToText(post.reposts)
             }
         }
     }
 
     private fun digitsToText(digitsToString: Long): String {
-        if (digitsToString <= 999) {
-            return digitsToString.toString().take(3)
-        } else if (digitsToString in 1000..999999) {
-            var thousands = Math.round((digitsToString / 1000).toDouble())
-            var thousandsSecond = Math.round((digitsToString % 1000).toDouble())
-            if (thousands.equals(0)) {
-                thousands.toString().take(3) + "K"
-            } else return return thousands.toString() + "." + thousandsSecond.toString()
-                .take(1) + "K"
-        } else if (digitsToString >= 1_000_000) {
-            var millions = Math.round((digitsToString / 1_000_000).toDouble())
-            var millionsSecond = Math.round((digitsToString % 1_000_000).toDouble())
-            if (millions.equals(0)) {
-                millions.toString().take(3) + "M"
-            } else return return millions.toString() + "." + millionsSecond.toString()
-                .take(1) + "M"
-
-        } else {
-            return digitsToString.toString().take(3)
+        when (digitsToString) {
+            in 0..999 -> return digitsToString.toString().take(3)
+            in 1000..999999 -> {
+                var thousands = Math.round((digitsToString / 1000).toDouble())
+                var thousandsSecond = Math.round((digitsToString % 1000).toDouble())
+                if (thousands.equals(0)) {
+                    thousands.toString().take(3) + "K"
+                } else return return thousands.toString() + "." + thousandsSecond.toString()
+                    .take(1) + "K"
+            }
+            else -> {
+                var millions = Math.round((digitsToString / 1_000_000).toDouble())
+                var millionsSecond = Math.round((digitsToString % 1_000_000).toDouble())
+                if (millions.equals(0)) {
+                    millions.toString().take(3) + "M"
+                } else return return millions.toString() + "." + millionsSecond.toString()
+                    .take(1) + "M"
+            }
         }
         return digitsToString.toString().take(3)
     }
