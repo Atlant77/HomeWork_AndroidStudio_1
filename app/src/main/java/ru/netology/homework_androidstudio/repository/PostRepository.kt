@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import ru.netology.homework_androidstudio.Post
 
 interface PostRepository {
-    fun get(): LiveData<Post>
-    fun like()
-    fun repostAdd()
+    fun getAll(): LiveData<List<Post>>
+    fun likeById(id: Long)
+    fun repostById(id: Long)
 }

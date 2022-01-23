@@ -9,7 +9,7 @@ import ru.netology.homework_androidstudio.repository.PostRepositoryInMemoryImpl
 class PostViewModel: ViewModel() {
 
     private val repository: PostRepository = PostRepositoryInMemoryImpl()
-    val data: LiveData<Post> = repository.get()
-    fun like() = repository.like()
-    fun repostAdd() = repository.repostAdd()
+    val data = repository.getAll()
+    fun likeById(id: Long) = repository.likeById(id)
+    fun repostById(id: Long) = repository.repostById(id)
 }
