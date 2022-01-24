@@ -6,7 +6,7 @@
     <string name="likes">Likes</string>
     <string name="reposts">Reposts</string>
     <string name="views">Views</string>
-    <string name="title_activity_card_post">card_post</string>
+    <string name="title_activity_card_post" translatable="false">card_post</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>

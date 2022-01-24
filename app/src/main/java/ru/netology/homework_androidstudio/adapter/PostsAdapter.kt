@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.netology.homework_androidstudio.Post
 import ru.netology.homework_androidstudio.R
 import ru.netology.homework_androidstudio.databinding.CardPostBinding
+import kotlin.math.roundToLong
 
 typealias likeCallback = (Post) -> Unit
 typealias repostCallback = (Post) -> Unit
@@ -68,25 +69,24 @@ private fun digitsToText(digitsToString: Long): String {
     when (digitsToString) {
         in 0..999 -> return digitsToString.toString().take(3)
         in 1_000..9_999 -> {
-            var thousands = Math.round((digitsToString / 1_000).toDouble())
-            var thousandsSecond = Math.round((digitsToString % 1_000).toDouble())
-            when (thousandsSecond) {
+            val thousands = (digitsToString / 1_000).toDouble().roundToLong()
+            when (val thousandsSecond = (digitsToString % 1_000).toDouble().roundToLong()) {
                 0L -> return thousands.toString().take(3) + "K"
                 in 100..999 -> return thousands.toString().take(3) + ".0 K"
-                in 1000..9999 -> return thousands.toString() + "." + thousandsSecond.toString()
+                in 1000..9999 -> return "$thousands." + thousandsSecond.toString()
                     .take(1) + "K"
             }
         }
         in 10_000..999_999 -> {
-            var thousands = Math.round((digitsToString / 1_000).toDouble())
+            val thousands = (digitsToString / 1_000).toDouble().roundToLong()
             return thousands.toString().take(3) + "K"
         }
         else -> {
-            var millions = Math.round((digitsToString / 1_000_000).toDouble())
-            var millionsSecond = Math.round((digitsToString % 1_000_000).toDouble())
-            if (millions.equals(0)) {
-                return millions.toString().take(3) + "M"
-            } else return millions.toString() + "." + millionsSecond.toString()
+            val millions = (digitsToString / 1_000_000).toDouble().roundToLong()
+            val millionsSecond = (digitsToString % 1_000_000).toDouble().roundToLong()
+            return if (millions == 0L) {
+                millions.toString().take(3) + "M"
+            } else "$millions." + millionsSecond.toString()
                 .take(1) + "M"
         }
     }
